@@ -15,20 +15,14 @@ def neighbour_count(cell, cells):
 	for i in range(-1, 2):
 		for j in range(-1, 2):
 			if (cell[0] + i, cell[1] + j) in cells and not (i == 0 and j == 0):
-				neighbour_count = neighbour_count + 1
+				neighbour_count += 1
 	return neighbour_count
 
 def cell_dies(cell, cells):
-	if neighbour_count(cell, cells) < 2 or neighbour_count(cell, cells) > 3:
-		return True
-	else:
-		return False
+	return neighbour_count(cell, cells) < 2 or neighbour_count(cell, cells) > 3
 
 def cell_is_reborn(coords, cells):
-	if neighbour_count(coords, cells) == 3:
-		return True
-	else:
-		return False
+	return neighbour_count(coords, cells) == 3
 
 def meaningfull_cells(cells):
 	xlist = list(cell[0] for cell in cells)
