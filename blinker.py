@@ -1,7 +1,3 @@
-import math
-
-live_cells = [(2, 1), (2, 2), (2, 3)]
-
 def draw_cells(cells):
 	size = 5
 	print '---------'
@@ -11,7 +7,6 @@ def draw_cells(cells):
 			print state,
 		print
 	print '---------'
-
 
 def neighbour_count(cell, cells):
 	neighbour_count = 0
@@ -44,14 +39,23 @@ def round(cells):
 				end_state.append((i, j))
 	return end_state
 
+def test():
+	seed = [(0, 0), (0, 1), (1, 0), (1, 1)]
+	size = 5
+	draw_cells(seed)
+	for cell in seed:
+		assert neighbour_count(cell, seed) == 3
+		assert not cell_dies(cell, seed)
+	for i in range(0, size):
+		for j in range(0, size):
+			assert (i, j) in seed or not cell_is_reborn((i, j), seed)
+
+	assert round(seed) == seed
+
+	blinker = [(2, 1), (2, 2), (2, 3)]
+	assert round(round(blinker)) == blinker
+
+test()
 
 
-print neighbour_count((2, 1), live_cells), cell_dies((2, 1), live_cells)
-print neighbour_count((2, 2), live_cells), cell_dies((2, 2), live_cells)
-print neighbour_count((2, 3), live_cells), cell_dies((2, 3), live_cells)
-print neighbour_count((1, 2), live_cells), cell_is_reborn((1, 2), live_cells)
-print neighbour_count((3, 2), live_cells), cell_is_reborn((3, 2), live_cells)
-
-
-draw_cells(round(round(live_cells)))
 
